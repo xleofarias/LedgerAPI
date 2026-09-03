@@ -1,3 +1,5 @@
+using System.Text.RegularExpressions;
+
 public class Account
 {
     public Guid Id { get;} = Guid.NewGuid();
@@ -9,6 +11,43 @@ public class Account
 
     public Account(string accountNumber)
     {
+        string pattern = "^[0-9]{3}[A-Z]{3}[-]{1}[A-Z]{3}[0-9]{3}$";
+
+        Regex rg = new Regex(pattern);
+
+        if(String.IsNullOrWhiteSpace(accountNumber)){
+            throw new ArgumentException("É necessário preencher com valores");
+        }
+
+        if(!rg.IsMatch(accountNumber)){
+            throw new ArgumentException("Número de conta inválido");
+        }
+
         AccountNumber = accountNumber;
+    }
+
+    public void Deposit(decimal amount)
+    {
+        if (amount <= 0)
+        {
+            throw new ArgumentException("Deposit amount must be positive.");
+        }
+
+        Balance += amount;
+    }
+
+    public void Withdraw(decimal amount)
+    {
+        if (amount <= 0)
+        {
+            throw new ArgumentException("Withdrawal amount must be positive.");
+        }
+
+        if (amount > Balance)
+        {
+            throw new InvalidOperationException("Insufficient funds.");
+        }
+
+        Balance -= amount;
     }
 }
