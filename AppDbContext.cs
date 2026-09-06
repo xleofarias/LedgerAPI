@@ -11,7 +11,7 @@ public class AppDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder) {
         modelBuilder.Entity<Account>().HasKey(a => a.Id);
         modelBuilder.Entity<Account>().Property(a => a.Balance).HasPrecision(18, 2);
-        modelBuilder.Entity<Account>().Property(a => a.AccountNumber).HasMaxLength(10);
+        modelBuilder.Entity<Account>().Property(a => a.AccountNumber).HasMaxLength(13);
         modelBuilder.Entity<Account>().Property(a => a.Status).HasMaxLength(10);
         modelBuilder.Entity<Account>().Property(a => a.AccountHolder).HasMaxLength(100);
     }
