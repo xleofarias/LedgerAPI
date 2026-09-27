@@ -1,3 +1,5 @@
+namespace LedgerAPI.API;
+
 using Microsoft.EntityFrameworkCore;
 
 public class AppDbContext : DbContext

@@ -1,9 +1,9 @@
-using System.ComponentModel.DataAnnotations;
+namespace LedgerAPI.API;
+
 using System.Text.RegularExpressions;
 
 public class Account
 {
-    [Key]
     public Guid Id { get;} = Guid.NewGuid();
     public string AccountNumber { get; private set; } 
     public string? AccountHolder { get; set; }

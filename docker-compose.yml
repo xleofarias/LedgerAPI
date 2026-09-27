@@ -8,10 +8,7 @@ services:
     ports:
       - "1433:1433"
     volumes:
-      # System databases (master, model, msdb)
       - sqlsystem:/var/opt/mssql
-      # User databases, logs, and backups
-      - sqldata:/var/opt/sqlserver
 volumes:
   sqlsystem:
   sqldata:   

@@ -1,8 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using DotNetEnv;
+using LedgerAPI.API;
 
 // Load environment variables from .env file
-Env.Load();
+Env.Load("/home/leofnz/Repos/LedgerAPI/.env");
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 
 // Add DbContext
-var connectionString = Environment.GetEnvironmentVariable("ConnectionSqlServer");
+var connectionString = Environment.GetEnvironmentVariable("ConnectionSqlServerDev");
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(connectionString ?? throw new InvalidOperationException("Connection string not found.")));
 
