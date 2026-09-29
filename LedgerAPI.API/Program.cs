@@ -2,8 +2,16 @@ using Microsoft.EntityFrameworkCore;
 using DotNetEnv;
 using LedgerAPI.API;
 
+
+var directory = Directory.GetCurrentDirectory();
+var directoryFather = Path.GetDirectoryName(directory) 
+    ?? throw new InvalidOperationException("Could not determine the parent directory.");
+var directoryEnv = Path.Combine(directoryFather, ".env");
+
 // Load environment variables from .env file
-Env.Load("/home/leofnz/Repos/LedgerAPI/.env");
+Env.Load(directoryEnv);
+
+Console.WriteLine(directoryEnv);
 
 var builder = WebApplication.CreateBuilder(args);
 

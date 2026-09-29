@@ -11,8 +11,13 @@ public class AccountTests
     [Fact]
     public async Task Account_Can_Be_Created()
     {
+        var directory = Directory.GetCurrentDirectory();
+        var directoryFather = Path.GetDirectoryName(directory) 
+            ?? throw new InvalidOperationException("Could not determine the parent directory.");
+        var directoryEnv = Path.Combine(directoryFather, ".env");
+
         // Load environment variables from .env file
-        Env.Load("/home/leofnz/Repos/LedgerAPI/.env");
+        Env.Load(directoryEnv);
 
         // Set up the service collection and configure the DbContext for testing
         var services = new ServiceCollection();
