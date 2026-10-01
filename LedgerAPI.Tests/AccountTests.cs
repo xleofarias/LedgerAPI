@@ -37,6 +37,9 @@ public class AccountTests
 
         // Id Account to be created
         Guid accountId;
+        string AccountNumber;
+        decimal Balance;
+        string Status;
 
         // Create a scope to resolve the DbContext and Account service
         using (var scope = serviceProvider.CreateScope())
@@ -50,6 +53,9 @@ public class AccountTests
 
             // Store the account ID for later retrieval
             accountId = newAccount.Id;
+            AccountNumber = newAccount.AccountNumber;
+            Balance = newAccount.Balance;
+            Status = newAccount.Status;
 
             // Add the account to the DbContext and save changes
             dbContext.Accounts.Add(newAccount);
@@ -69,6 +75,9 @@ public class AccountTests
             // Assert that the account was retrieved successfully
             Assert.NotNull(retrievedAccount);
             Assert.Equal(accountIdToRetrieve, retrievedAccount.Id);
+            Assert.Equal(AccountNumber, retrievedAccount.AccountNumber);
+            Assert.Equal(Balance, retrievedAccount.Balance);
+            Assert.Equal(Status, retrievedAccount.Status);
         }
     }
 }

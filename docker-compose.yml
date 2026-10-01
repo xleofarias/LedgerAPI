@@ -11,4 +11,3 @@ services:
       - sqlsystem:/var/opt/mssql
 volumes:
   sqlsystem:
-  sqldata:   
