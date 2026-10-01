@@ -37,9 +37,9 @@ public class AccountTests
 
         // Id Account to be created
         Guid accountId;
-        string AccountNumber;
-        decimal Balance;
-        string Status;
+        string accountNumber;
+        decimal balance;
+        string status;
 
         // Create a scope to resolve the DbContext and Account service
         using (var scope = serviceProvider.CreateScope())
@@ -53,9 +53,9 @@ public class AccountTests
 
             // Store the account ID for later retrieval
             accountId = newAccount.Id;
-            AccountNumber = newAccount.AccountNumber;
-            Balance = newAccount.Balance;
-            Status = newAccount.Status;
+            accountNumber = newAccount.AccountNumber;
+            balance = newAccount.Balance;
+            status = newAccount.Status;
 
             // Add the account to the DbContext and save changes
             dbContext.Accounts.Add(newAccount);
