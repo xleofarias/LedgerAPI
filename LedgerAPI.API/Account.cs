@@ -1,3 +1,5 @@
+namespace LedgerAPI.API;
+
 using System.Text.RegularExpressions;
 
 public class Account
