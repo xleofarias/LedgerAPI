@@ -23,8 +23,6 @@ public class AccountController : ControllerBase
             AccountHolder = accountDto.AccountHolder
         };
 
-        if()
-
         await _context.Accounts.AddAsync(account, ct);
         
         await _context.SaveChangesAsync(ct);
