@@ -22,6 +22,11 @@ public class AccountController : ControllerBase
 
         Regex rg = new Regex(pattern);
 
+        if(!rg.IsMatch(accountDto.AccountNumber))
+        {
+            return BadRequest("Invalid account number format.");
+        }
+
         var account = new Account(accountDto.AccountNumber)
         {   
             AccountHolder = accountDto.AccountHolder
@@ -30,16 +35,6 @@ public class AccountController : ControllerBase
         if(account.AccountNumber == null)
         {
             return BadRequest("Account number is required.");
-        }
-
-        if(!rg.IsMatch(account.AccountNumber))
-        {
-            return BadRequest("Invalid account number format.");
-        }
-
-        if(account.AccountHolder == null)
-        {
-            return BadRequest("Account holder name is required.");
         }
 
         await _context.Accounts.AddAsync(account, ct);

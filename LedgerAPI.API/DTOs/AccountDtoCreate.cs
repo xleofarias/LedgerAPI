@@ -4,8 +4,6 @@ namespace LedgerAPI.API.DTOs;
 
 public class AccountDtoCreate
 {
-	[Required]
-	[StringLength(100, MinimumLength = 10, ErrorMessage = "Account holder name must be between 10 and 100 characters long.")]
 	public string AccountHolder { get; set; } = string.Empty;
 
 	[Required]
