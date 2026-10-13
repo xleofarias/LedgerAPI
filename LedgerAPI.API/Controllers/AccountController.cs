@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using LedgerAPI.API;
 using LedgerAPI.API.DTOs;
+using System.Text.RegularExpressions;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -13,35 +14,38 @@ public class AccountController : ControllerBase
         _context = context;
     }
 
-    [HttpPost("create")]
+    [HttpPost]
     public async Task<IActionResult> CreateAccountAsync([FromBody] AccountDtoCreate accountDto, CancellationToken ct = default)
-    {
-        var accountNumber = GenerateAccountNumber.Generate();
-        
-        var account = new Account(accountNumber)
-        {
+    {        
+
+        string pattern = "^[0-9]{3}[A-Z]{3}[-]{1}[A-Z]{3}[0-9]{3}$";
+
+        Regex rg = new Regex(pattern);
+
+        var account = new Account(accountDto.AccountNumber)
+        {   
             AccountHolder = accountDto.AccountHolder
         };
 
-        if(account.AccountHolder == null || account.AccountHolder.Length < 10)
+        if(account.AccountNumber == null)
         {
-            return BadRequest("Account holder name must be at least 10 characters long.");
+            return BadRequest("Account number is required.");
         }
 
-        if(account.AccountHolder.Length > 100)
+        if(!rg.IsMatch(account.AccountNumber))
         {
-            return BadRequest("Account holder name must not exceed 100 characters.");
+            return BadRequest("Invalid account number format.");
         }
 
-        if(account.AccountHolder.Any(char.IsDigit))
+        if(account.AccountHolder == null)
         {
-            return BadRequest("Account holder name must not contain numbers.");
+            return BadRequest("Account holder name is required.");
         }
 
         await _context.Accounts.AddAsync(account, ct);
         
         await _context.SaveChangesAsync(ct);
         
-        return Ok("Account Created");
+        return Created();
     }
 }
