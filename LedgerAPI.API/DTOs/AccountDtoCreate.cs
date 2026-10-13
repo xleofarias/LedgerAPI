@@ -1,5 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace LedgerAPI.API.DTOs;
 
 public class AccountDtoCreate
