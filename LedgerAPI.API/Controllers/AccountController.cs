@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using LedgerAPI.API;
 using LedgerAPI.API.DTOs;
-using System.Text.RegularExpressions;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -17,10 +16,12 @@ public class AccountController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateAccountAsync([FromBody] AccountDtoCreate accountDto, CancellationToken ct = default)
     {       
+        
+        Account account;
 
         try
         {
-            var account = new Account(accountDto.AccountNumber)
+            account = new Account(accountDto.AccountNumber)
             {   
                 AccountHolder = accountDto.AccountHolder
             };
