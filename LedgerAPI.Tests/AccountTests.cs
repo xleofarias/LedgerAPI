@@ -75,9 +75,9 @@ public class AccountTests
             // Assert that the account was retrieved successfully
             Assert.NotNull(retrievedAccount);
             Assert.Equal(accountIdToRetrieve, retrievedAccount.Id);
-            Assert.Equal(AccountNumber, retrievedAccount.AccountNumber);
-            Assert.Equal(Balance, retrievedAccount.Balance);
-            Assert.Equal(Status, retrievedAccount.Status);
+            Assert.Equal(accountNumber, retrievedAccount.AccountNumber);
+            Assert.Equal(balance, retrievedAccount.Balance);
+            Assert.Equal(status, retrievedAccount.Status);
         }
     }
 }
