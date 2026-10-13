@@ -25,15 +25,15 @@ public class AccountController : ControllerBase
             {   
                 AccountHolder = accountDto.AccountHolder
             };
-            
-            await _context.Accounts.AddAsync(account, ct);
-            
-            await _context.SaveChangesAsync(ct);
-            
-            return Created();
         } catch (ArgumentException ex)
         {
             return BadRequest(new { message = ex.Message });
         }
+        
+        await _context.Accounts.AddAsync(account, ct);
+            
+        await _context.SaveChangesAsync(ct);
+            
+        return Created();
     }
 }
