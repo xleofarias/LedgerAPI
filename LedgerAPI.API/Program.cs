@@ -2,7 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using DotNetEnv;
 using LedgerAPI.API;
 
-
 var currentDirectory = Environment.CurrentDirectory;
 var env = ".env";
 
@@ -21,9 +20,10 @@ while(currentDirectory != null)
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add services to the container.
+builder.Services.AddControllers();
 
 // Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
 // Add DbContext
@@ -37,7 +37,14 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/openapi/v1.json", "LedgerAPI API V1");
+    });
 }
+
+app.MapControllers();
 
 app.UseHttpsRedirection();
 
