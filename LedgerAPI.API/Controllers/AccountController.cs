@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using LedgerAPI.API;
 using LedgerAPI.API.DTOs;
+using Microsoft.EntityFrameworkCore;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -18,7 +19,6 @@ public class AccountController : ControllerBase
     {       
         
         Account account;
-
         try
         {
             account = new Account(accountDto.AccountNumber)
@@ -29,10 +29,17 @@ public class AccountController : ControllerBase
         {
             return BadRequest(new { message = ex.Message });
         }
+
+        try
+        {
+            await _context.Accounts.AddAsync(account, ct);
+                
+            await _context.SaveChangesAsync(ct);
+        } catch (DbUpdateException ex) when (ex.InnerException?.Message.Contains("duplicate key value") == true)
+        {
+            return BadRequest(new { message = "An account with the same account number already exists." });
+        }
         
-        await _context.Accounts.AddAsync(account, ct);
-            
-        await _context.SaveChangesAsync(ct);
             
         return Created();
     }
