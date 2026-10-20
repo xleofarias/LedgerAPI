@@ -41,7 +41,6 @@ public class AccountController : ControllerBase
             return Conflict(new { message = "An account with the same account number already exists." });
         }
         
-            
         return Created();
     }
 }
