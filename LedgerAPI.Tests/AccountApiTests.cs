@@ -1,6 +1,6 @@
 using System.Net.Http.Json;
-using Microsoft.AspNetCore.Mvc.Testing;
 using LedgerAPI.Tests;
+using LedgerAPI.API.Extensions;
 public class AccountApiTests : IClassFixture<CustomWebApplicationFactory>
 {
     private readonly CustomWebApplicationFactory _factory;
@@ -13,21 +13,20 @@ public class AccountApiTests : IClassFixture<CustomWebApplicationFactory>
     }
 
     [Fact]
-    public async Task Account_With_Valid_Data_Can_Be_Created()
+    public async Task CreateAccount_WithValidPayload_ReturnsCreated()
     {
         // Arrange
+        var accountNumber = GenerateAccountNumber.CreateAccountNumber();
         var payload = new
         {
             AccountHolder = "Test Account",
-            AccountNumber = "123ABC-DEF457"
+            AccountNumber = accountNumber
         };
 
         // Act    
         var response = await _httpClient.PostAsJsonAsync("/api/account", payload, cancellationToken : default);
-        
-        response.EnsureSuccessStatusCode();
 
         // Assert
-        Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
+        Assert.Equal(System.Net.HttpStatusCode.Created, response.StatusCode);
     }
 }
