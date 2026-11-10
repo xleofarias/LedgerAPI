@@ -45,9 +45,9 @@ public class AccountTests
         using (var scope = serviceProvider.CreateScope())
         {
             var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-
+            
             // Create a new account
-            var newAccount = new Account("123ABC-DEF456"){
+            var newAccount = new Account("123ABC-DEF416"){
                 AccountHolder = "Test Account"
             };
 
