@@ -12,7 +12,7 @@ public class AccountApiTests : IClassFixture<CustomWebApplicationFactory>
         _httpClient = factory.CreateClient();
     }
 
-    [Fact]
+    [Fact()]
     public async Task CreateAccount_WithValidPayload_ReturnsCreated()
     {
         // Arrange
@@ -28,5 +28,42 @@ public class AccountApiTests : IClassFixture<CustomWebApplicationFactory>
 
         // Assert
         Assert.Equal(System.Net.HttpStatusCode.Created, response.StatusCode);
+    }
+
+    [Fact()]
+    public async Task CreateAccount_WithInvalidNumber_ReturnsBadRequest()
+    {
+        // Arrange
+        var payload = new
+        {
+            AccountHolder = "Test Account",
+            AccountNumber = "12345678901234" // Invalid account number (14 digits)
+        };
+
+        // Act    
+        var response = await _httpClient.PostAsJsonAsync("/api/account", payload, cancellationToken : default);
+
+        // Assert
+        Assert.Equal(System.Net.HttpStatusCode.BadRequest, response.StatusCode);
+    }
+
+    [Fact()]
+    public async Task CreateAccount_WithDuplicateAccountNumber_ReturnsBadRequest()
+    {
+        // Arrange
+        var accountNumber = GenerateAccountNumber.CreateAccountNumber();
+        var payload = new
+        {
+            AccountHolder = "Test Account",
+            AccountNumber = accountNumber
+        };
+
+        // Act    
+        var response1 = await _httpClient.PostAsJsonAsync("/api/account", payload, cancellationToken : default);
+        var response2 = await _httpClient.PostAsJsonAsync("/api/account", payload, cancellationToken : default);
+
+        // Assert
+        Assert.Equal(System.Net.HttpStatusCode.Created, response1.StatusCode);
+        Assert.Equal(System.Net.HttpStatusCode.BadRequest, response2.StatusCode);
     }
 }
