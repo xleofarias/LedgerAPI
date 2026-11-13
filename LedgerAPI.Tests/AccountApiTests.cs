@@ -64,6 +64,6 @@ public class AccountApiTests : IClassFixture<CustomWebApplicationFactory>
 
         // Assert
         Assert.Equal(System.Net.HttpStatusCode.Created, response1.StatusCode);
-        Assert.Equal(System.Net.HttpStatusCode.BadRequest, response2.StatusCode);
+        Assert.Equal(System.Net.HttpStatusCode.Conflict, response2.StatusCode);
     }
 }
