@@ -3,12 +3,10 @@ using LedgerAPI.Tests;
 using LedgerAPI.API.Extensions;
 public class AccountApiTests : IClassFixture<CustomWebApplicationFactory>
 {
-    private readonly CustomWebApplicationFactory _factory;
     private readonly HttpClient _httpClient;
 
     public AccountApiTests(CustomWebApplicationFactory factory)
     {
-        _factory = factory;
         _httpClient = factory.CreateClient();
     }
 
@@ -48,7 +46,7 @@ public class AccountApiTests : IClassFixture<CustomWebApplicationFactory>
     }
 
     [Fact()]
-    public async Task CreateAccount_WithDuplicateAccountNumber_ReturnsBadRequest()
+    public async Task CreateAccount_WithDuplicateAccountNumber_ReturnsConflict()
     {
         // Arrange
         var accountNumber = GenerateAccountNumber.CreateAccountNumber();

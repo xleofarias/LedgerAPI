@@ -20,7 +20,7 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
                 services.Remove(descriptor);
             }
 
-            var connectionString = Environment.GetEnvironmentVariable("ConnectionSqlServerDev") ?? throw new InvalidOperationException("Connection string not found.");
+            var connectionString = Environment.GetEnvironmentVariable("ConnectionSqlServerTests") ?? throw new InvalidOperationException("Connection string not found.");
             services.AddDbContext<AppDbContext>(options =>
             {
                 options.UseSqlServer(connectionString);
