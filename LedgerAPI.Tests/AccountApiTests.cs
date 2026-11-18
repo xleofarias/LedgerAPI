@@ -10,7 +10,7 @@ public class AccountApiTests : IClassFixture<CustomWebApplicationFactory>
         _httpClient = factory.CreateClient();
     }
 
-    [Fact()]
+    [Fact]
     public async Task CreateAccount_WithValidPayload_ReturnsCreated()
     {
         // Arrange
@@ -28,7 +28,7 @@ public class AccountApiTests : IClassFixture<CustomWebApplicationFactory>
         Assert.Equal(System.Net.HttpStatusCode.Created, response.StatusCode);
     }
 
-    [Fact()]
+    [Fact]
     public async Task CreateAccount_WithInvalidNumber_ReturnsBadRequest()
     {
         // Arrange
@@ -45,7 +45,7 @@ public class AccountApiTests : IClassFixture<CustomWebApplicationFactory>
         Assert.Equal(System.Net.HttpStatusCode.BadRequest, response.StatusCode);
     }
 
-    [Fact()]
+    [Fact]
     public async Task CreateAccount_WithDuplicateAccountNumber_ReturnsConflict()
     {
         // Arrange
