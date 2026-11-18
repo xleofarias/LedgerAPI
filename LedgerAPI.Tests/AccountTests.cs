@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 public class AccountTests
 {
     [Fact]
-    public async Task Account_Can_Be_Created()
+    public async Task Account_Can_Be_Persisted()
     {
         var serviceProvider = CustomBuildServiceProvider.CreateBuildServiceProvider();
 
