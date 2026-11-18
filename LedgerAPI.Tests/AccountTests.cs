@@ -61,7 +61,7 @@ public class AccountTests
 
 
     [Fact]
-    public async Task Account_WhenCreated_HasZeroBalance() {
+    public void Account_WhenCreated_HasZeroBalance() {
 
         decimal balance = 0;
         
@@ -73,7 +73,7 @@ public class AccountTests
     }
 
     [Fact]
-    public async Task Account_WhenCreated_HasActiveStatus() {
+    public void Account_WhenCreated_HasActiveStatus() {
 
         string status = "Active";
 

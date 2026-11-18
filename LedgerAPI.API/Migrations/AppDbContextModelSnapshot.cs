@@ -50,11 +50,6 @@ namespace LedgerAPI.Migrations
 
                     b.HasIndex("AccountNumber")
                         .IsUnique();
-
-                    b.ToTable("Accounts", null, t =>
-                        {
-                            t.ExcludeFromMigrations();
-                        });
                 });
 #pragma warning restore 612, 618
         }
